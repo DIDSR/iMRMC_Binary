@@ -90,9 +90,13 @@ if tmp<0
 end
 F_stat=mst/(mstr+tmp);
 ddf_H=(mstr+tmp)^2/(mstr^2/((t-1)*(r-1)));
-pval=1-cdf('f',F_stat,t-1,ddf_H);
-delta1=icdf('t',0.025,ddf_H)*sqrt(2*(mstr+tmp)/r);
-delta2=icdf('t',1-0.025,ddf_H)*sqrt(2*(mstr+tmp)/r);
+pval=1-fcdf(F_stat,t-1,ddf_H);
+delta1=tinv(0.025,ddf_H)*sqrt(2*(mstr+tmp)/r);
+delta2=tinv(1-0.025,ddf_H)*sqrt(2*(mstr+tmp)/r);
+% pval=1-cdf('f',F_stat,t-1,ddf_H); %replaced by three lines above to run
+% in Octave
+% delta1=icdf('t',0.025,ddf_H)*sqrt(2*(mstr+tmp)/r);
+% delta2=icdf('t',1-0.025,ddf_H)*sqrt(2*(mstr+tmp)/r);
 CI95=[mauc_t(2)-mauc_t(1)+delta1 mauc_t(2)-mauc_t(1)+delta2];
 ret.mst=mst;
 ret.msr=msr;
